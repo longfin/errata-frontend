@@ -12,6 +12,9 @@ export default function Home() {
         <title>Errata</title>
         <meta name="description" content="Decentralized Audit Organization" />
         <link rel="icon" href="/favicon.ico" />
+        <button className="connect-wallet">
+          Connect Wallet
+        </button>
       </Head>
 
   
