@@ -17,7 +17,7 @@ export default function Host() {
         <div className={styles.caef}>
           <p>Create an Errata form</p>
         </div>
-      
+
         <div className={styles.titlerg}>
           <lable>Project name
               <br/>
@@ -47,6 +47,15 @@ export default function Host() {
             <br/>
         <input type="range" min="1" max="20" step="1" />
         </label>
+
+        <div className={styles.fundingrg}>
+        <label>External funding history
+            <br/>
+        <input type="text" className="textbox" />
+        </label>
+      </div>
+
+
       </div>
 
 
