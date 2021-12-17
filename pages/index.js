@@ -2,24 +2,30 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import Host from "./host";
 
 export default function Home() {
   return (
     <div className={styles.container}>
     <div>
       <Head>
-        
+       
         <title>Errata</title>
+       
         <meta name="description" content="Decentralized Audit Organization" />
         <link rel="icon" href="/favicon.ico" />
-        <button className="connect-wallet">
+        <button className={styles.connectwallet}>
           Connect Wallet
         </button>
       </Head>
 
   
        </div>
+       <Link href="/Errata">
+         <a>
         <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
+        </a>
+        </Link>
         <div className={styles.mainSection}>
           <div className={styles.left}>
             <div className={styles.title}>
@@ -37,7 +43,7 @@ export default function Home() {
               <Link href="/host">
                 <a className={styles.hostButton}>Host Errata</a>
               </Link>
-              <Link href="/invest">
+              <Link href="/Errata/invest">
                 <a className={styles.investButton}>Invest</a>
               </Link>
             </div>
