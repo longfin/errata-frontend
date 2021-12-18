@@ -70,15 +70,18 @@ export default function Home() {
                 <div className={styles.projectName}>Project 1</div>
                 <div className={styles.epoch}>Epoch 3</div>
               </div>
+       
+             
             </div>
             <Link href="/invest">
                 <a className={styles.exp}>Explore projects →</a>
               </Link>
           </div>
+ 
         </div>
     
 
- 
+        
 
     </div>
   )
