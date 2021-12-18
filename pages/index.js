@@ -8,7 +8,8 @@ import { getKeplrFromWindow } from "@keplr-wallet/stores";
 
 export default function Home() {
   const [keplr, setKeplr] = useState(null);
-  const [bech32Address, setBech32Address] = useState("");  
+  const [bech32Address, setBech32Address] = useState("");
+  const [protocols, setProtocols] = useState([]);
   const KeyAccountAutoConnect = "account_auto_connect";
   
   const connectWallet = async () => {
@@ -28,6 +29,13 @@ export default function Home() {
       alert(e);
     }
   };
+  
+  useEffect(() => {
+    fetch(`${chainInfo.rest}/errata/audit/v1beta1/protocols`).then(async res => {
+      var data = await res.json();
+      setProtocols(data.Protocol.slice(0, 4));
+    })
+  }, []);
 
   useEffect(() => {
     const shouldAutoConnectAccount =
@@ -99,24 +107,17 @@ export default function Home() {
           <div className={styles.right}>
             <div className={styles.ongoing}>Ongoing Errata</div>
             <Link href="investList">
-            <div className={styles.projects}>
-              <div className={styles.project}>
-                <div className={styles.projectName}>Project 1</div>
-                <div className={styles.epoch}>Epoch 3</div>
+              <div className={styles.projects}>
+                {
+                  protocols != null && protocols.map(
+                    p => 
+                    <div key={p.id} className={styles.project}>
+                      <div className={styles.projectName}>{p.title}</div>
+                      <div className={styles.epoch}>Epoch 3</div>
+                    </div>
+                  )
+                }
               </div>
-              <div className={styles.project}>
-                <div className={styles.projectName}>Project 1</div>
-                <div className={styles.epoch}>Epoch 3</div>
-              </div>
-              <div className={styles.project}>
-                <div className={styles.projectName}>Project 1</div>
-                <div className={styles.epoch}>Epoch 3</div>
-              </div>
-              <div className={styles.project}>
-                <div className={styles.projectName}>Project 1</div>
-                <div className={styles.epoch}>Epoch 3</div>
-              </div>
-            </div>
             </Link>
             <Link href="/investList">
               <a className={styles.exp}>Explore projects →</a>
