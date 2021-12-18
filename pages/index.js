@@ -57,7 +57,13 @@ export default function Home() {
       <div className={styles.container}>
         <header className={styles.header}>
           <Link href="/">
-            <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
+          <Image
+                src="/logo.png"
+                alt="logo"
+                width="170"
+                height="45.5"
+                left="40"
+              />
           </Link>
           { 
             (bech32Address !== "") 
@@ -110,15 +116,12 @@ export default function Home() {
                 <div className={styles.projectName}>Project 1</div>
                 <div className={styles.epoch}>Epoch 3</div>
               </div>
-       
-             
             </div>
             </Link>
             <Link href="/investList">
               <a className={styles.exp}>Explore projects →</a>
             </Link>
           </div>
- 
         </div>
       </div>
     </>
