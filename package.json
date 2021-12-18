@@ -15,6 +15,13 @@
     "next": "12.0.7",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "@keplr-wallet/cosmos": "^0.9.9",
+    "@keplr-wallet/stores": "^0.9.9",
+    "@keplr-wallet/unit": "^0.9.9"
+  },
+  "devDependencies": {
+    "eslint": "8.4.1",
+    "eslint-config-next": "12.0.7"
   }
 }

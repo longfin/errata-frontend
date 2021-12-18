@@ -19,7 +19,7 @@ export default function Host() {
         </div>
 
         <div className={styles.titlerg}>
-          <lable>Project name
+          <lable>Project name <a className={styles.required}>' Required '</a>  
               <br/>
           <input type="text" className="titler"/>
           </lable>
@@ -35,21 +35,31 @@ export default function Host() {
 
 
         <div className={styles.descriptionrg}>
-          <label>Discription
+          <label>Discription <a className={styles.required}>' Required '</a>  
               <br/>
           <input type="file" className="descf" />
           </label>
         </div>
 
       <div className={styles.hcd}>
-      <p>Help contributors discover your Errata</p>
+      <p>Set goals for Errata </p>
       </div>
 
         <div className={styles.epochrg}>
-        <label>Epoch number
+        <label>Epoch number <a className={styles.required}>' Required '</a>  
             <br/>
         <input type="range" min="1" max="20" step="1" />
         </label>
+
+        <div className={styles.epochl}>
+          <label> Epoch length <a className={styles.required}>' Required '</a>  
+          <br/>
+          <input type="number"></input>
+
+          </label>
+
+
+        </div>
 
         <div className={styles.fundingrg}>
         <label>External funding history
@@ -58,10 +68,53 @@ export default function Host() {
         </label>
       </div>
 
+      <div className={styles.giturl}>
+        <label>Githib Url <a className={styles.required}>' Required '</a>  
+            <br/>
+        <input type="text" className="textbox" />
+        </label>
+      </div>
+
+      <div className={styles.proweb}>
+        <label>Project Website
+            <br/>
+        <input type="text" className="textbox" />
+        </label>
+      </div>
+
+      <div className={styles.setgoal}>
+        <label>Set goals for each epoch
+          <br/>
+      <input type="text"></input>
+        </label>
+      </div>
+
+      <div>
+        <label className={styles.vulner}>Target vulnerabilities in scope
+          <br/>
+        <input type="file"></input>
+        </label>
+      </div>
+
+    
+      <div className={styles.help}>
+      <p> Help contributers discover your Errata </p>
+      </div>
+
+      <label className={styles.category}>
+       Category
+       <br/>
+        <input type="text"></input>
+      </label>
+
+
+      <button className={styles.launcherrata}>Launch Errata</button>
+
+      </div>
 
       </div>
 
 
-      </div>
+    
     );
   }
