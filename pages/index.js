@@ -9,16 +9,11 @@ export default function Home() {
     <div className={styles.container}>
     <div>
       <Head>
-       
         <title>Errata</title>
        
         <meta name="description" content="Decentralized Audit Organization" />
         <link rel="icon" href="/favicon.ico" />
-        <button className={styles.connectwallet}>
-          Connect Wallet
-        </button>
       </Head>
-
   
        </div>
        <Link href="/Errata">
@@ -26,6 +21,10 @@ export default function Home() {
         <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
         </a>
         </Link>
+
+        <button className={styles.connectwallet}>
+          Connect Wallet
+        </button>
         <div className={styles.mainSection}>
           <div className={styles.left}>
             <div className={styles.title}>

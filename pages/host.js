@@ -41,6 +41,9 @@ export default function Host() {
           </label>
         </div>
 
+      <div className={styles.hcd}>
+      <p>Help contributors discover your Errata</p>
+      </div>
 
         <div className={styles.epochrg}>
         <label>Epoch number
