@@ -10,6 +10,7 @@ export default function investList() {
   const [keplr, setKeplr] = useState(null);
   const [bech32Address, setBech32Address] = useState("");
   const KeyAccountAutoConnect = "account_auto_connect";
+  const [protocols, setProtocols] = useState([]);
 
   const connectWallet = async () => {
     try {
@@ -30,6 +31,13 @@ export default function investList() {
   };
 
   useEffect(() => {
+    fetch(`${chainInfo.rest}/errata/audit/v1beta1/protocols`).then(async res => {
+      var data = await res.json();
+      setProtocols(data.Protocol);
+    })
+  }, []);
+
+  useEffect(() => {
     const shouldAutoConnectAccount =
       localStorage?.getItem(KeyAccountAutoConnect) != null;
     const loadAccountInfo = async () => {
@@ -45,6 +53,7 @@ export default function investList() {
 
     loadAccountInfo();
   }, [keplr]);
+
   return (
     <>
       <Head>
@@ -82,49 +91,16 @@ export default function investList() {
         </div>
         <div className={styles.maincontainer}>
           <div className={styles.projectList}>
-            <div className={styles.project}>
-              <div className={styles.projectName}>Osmosis</div>
-              <div className={styles.ilEpoch}>Epoch 4</div>
-              <Link href="/Osmosis">
-                <button className={styles.invbutton1}>Invest</button>
-              </Link>
-            </div>
-
-            <div className={styles.project}>
-              <div className={styles.projectName}>Planetarium</div>
-              <div className={styles.ilEpoch}>Epoch 3</div>
-              <button className={styles.invbutton2}>Invest</button>
-            </div>
-
-            <div className={styles.project}>
-              <div className={styles.projectName}>Near</div>
-              <div className={styles.ilEpoch}>Epoch 3</div>
-              <button className={styles.invbutton3}>Invest</button>
-            </div>
-
-            <div className={styles.project}>
-              <div className={styles.projectName}>Cosmos</div>
-              <div className={styles.ilEpoch}>Epoch 3</div>
-              <button className={styles.invbutton4}>Invest</button>
-            </div>
-
-            <div className={styles.project}>
-              <div className={styles.projectName}>Cosmos</div>
-              <div className={styles.ilEpoch}>Epoch 3</div>
-              <button className={styles.invbutton5}>nvest</button>
-            </div>
-
-            <div className={styles.project}>
-              <div className={styles.projectName}>Cosmos</div>
-              <div className={styles.ilEpoch}>Epoch 3</div>
-              <button className={styles.invbutton6}>Invest</button>
-            </div>
-
-            <div className={styles.project}>
-              <div className={styles.projectName}>Cosmos</div>
-              <div className={styles.ilEpoch}>Epoch 3</div>
-              <button className={styles.invbutton7}>Invest</button>
-            </div>
+            { protocols != null && protocols.map(
+                p => 
+                <div key={p.id} className={styles.project}>
+                  <div className={styles.projectName}>{p.title}</div>
+                  <div className={styles.ilEpoch}>Epoch 3</div>
+                  <Link href="/Osmosis">
+                    <button className={styles.invbutton1}>Invest</button>
+                  </Link>
+                </div>)
+            }
           </div>
         </div>
       </div>

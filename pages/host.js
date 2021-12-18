@@ -2,11 +2,14 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Host.module.css";
-import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import { getKeplrFromWindow } from "@keplr-wallet/stores";
 import { chainInfo } from "../config/chain";
 import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeSignDoc,
+  makeStdTx,
+} from "@cosmjs/launchpad";
 
 const useStyles = makeStyles((theme) => ({
   root: { backgroundColor: "white" },
@@ -55,6 +58,64 @@ export default function Host() {
 
     loadAccountInfo();
   }, [keplr]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    var res = await fetch(`${chainInfo.rest}/auth/accounts/${bech32Address}`);
+    var accountData = await res.json();
+    const accountNumber =
+      (accountData && accountData.result.value.account_number) || "0";
+    const sequence = (accountData && accountData.result.value.sequence) || "0";
+    const aminoMsgs = [
+      {
+        type: "errata/audit/MsgRegisterProtocol",
+        value: {
+          sender: bech32Address,
+          title: e.target['title'].value,
+          description: e.target['description'].value,
+          source_code:  e.target['sourceUrl'].value,
+          project_home: e.target['projectUrl'].value,
+          category: e.target['category'].value,
+        },
+      },
+    ];
+    const fee = {
+      gas: "200000",
+      amount: [
+        {
+          amount: "0",
+          denom: "uert",
+        },
+      ],
+    };
+
+    const signDoc = makeSignDoc(
+      aminoMsgs,
+      fee,
+      chainInfo.chainId,
+      "",
+      accountNumber.toString(),
+      sequence.toString()
+    );
+
+    try {
+      const signResponse = await keplr.signAmino(
+        chainInfo.chainId,
+        bech32Address,
+        signDoc,
+        undefined
+      );
+      const signedTx = makeStdTx(signResponse.signed, signResponse.signature);
+      await keplr.sendTx(
+        chainInfo.chainId,
+        signedTx,
+        "async"
+      );
+    }
+    catch {
+    }
+  }
+
   return (
     <>
       <Head>
@@ -85,60 +146,62 @@ export default function Host() {
           <div className={styles.caef}>
             <p>Create an Errata form</p>
           </div>
-          <div className={styles.titlerg}>
-            <label>
-              Project name
-              <br />
-              <input className={styles.inputBox}></input>
-            </label>
-          </div>
-
-          <div className={styles.descriptionrg}>
-            <label>
-              Discription
-              <br />
-              <input className={styles.descinput} />
-            </label>
-          </div>
-
-          <div className={styles.hcd}>
-            <p>Set goals for Errata </p>
-          </div>
-
-          <div className={styles.epochrg}>
-            <label>
-              Epoch number
-              <br />
-              <input className={styles.epochinput} />
-            </label>
-
-            <div className={styles.vulner}>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.titlerg}>
               <label>
-                {" "}
-                Target vulnerabilities in scope
+                Project name
                 <br />
-                <input className={styles.epochinput}></input>
+                <input name="title" className={styles.inputBox}></input>
               </label>
             </div>
 
-            <div className={styles.giturl}>
+            <div className={styles.descriptionrg}>
               <label>
-                Github Url
+                Description
                 <br />
-                <input className={styles.gitinputBox} />
+                <input name="description" className={styles.descinput} />
               </label>
             </div>
 
-            <div className={styles.proweb}>
-              <label>
-                Project Website
-                <br />
-                <input type="text" className={styles.prowebinput} />
-              </label>
+            <div className={styles.hcd}>
+              <p>Set goals for Errata </p>
             </div>
 
-            <button className={styles.launcherrata}>Launch Errata</button>
-          </div>
+            <div className={styles.epochrg}>
+              <label>
+                Epoch number
+                <br />
+                <input className={styles.epochinput} />
+              </label>
+
+              <div className={styles.vulner}>
+                <label>
+                  {" "}
+                  Target vulnerabilities in scope
+                  <br />
+                  <input name="category" className={styles.epochinput}></input>
+                </label>
+              </div>
+
+              <div className={styles.giturl}>
+                <label>
+                  Github Url
+                  <br />
+                  <input name="sourceUrl" className={styles.gitinputBox} />
+                </label>
+              </div>
+
+              <div className={styles.proweb}>
+                <label>
+                  Project Website
+                  <br />
+                  <input name="projectUrl" type="text" className={styles.prowebinput} />
+                </label>
+              </div>
+
+              <button type="submit" className={styles.launcherrata}>Launch Errata</button>
+            </div>
+          </form>
         </div>
       </div>
     </>
