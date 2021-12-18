@@ -721,7 +721,7 @@
 .boxx{
   position:absolute;
   width:1197px;
-  height:400px;
+  height:2000px;
   border-radius: 10px 10px 0 0;
   background-color: #1D1F1F ;
   top:360px;
@@ -731,11 +731,16 @@
   position:absolute;
   left:30px;
   font-size: 32px;
+  color:#D2D3DE;
+
 }
 
 .ovv{
   padding-left: 30px;
   padding-right:30px;
+  color: #D2D3DE;
+  line-height: 34.8px;
+  font-size: 22px;;
 }
 
 .attakcircle{

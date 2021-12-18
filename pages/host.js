@@ -2,11 +2,14 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Host.module.css";
-import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import { getKeplrFromWindow } from "@keplr-wallet/stores";
 import { chainInfo } from "../config/chain";
 import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeSignDoc,
+  makeStdTx,
+} from "@cosmjs/launchpad";
 
 const useStyles = makeStyles((theme) => ({
   root: { backgroundColor: "white" },
@@ -55,6 +58,64 @@ export default function Host() {
 
     loadAccountInfo();
   }, [keplr]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    var res = await fetch(`${chainInfo.rest}/auth/accounts/${bech32Address}`);
+    var accountData = await res.json();
+    const accountNumber =
+      (accountData && accountData.result.value.account_number) || "0";
+    const sequence = (accountData && accountData.result.value.sequence) || "0";
+    const aminoMsgs = [
+      {
+        type: "errata/audit/MsgRegisterProtocol",
+        value: {
+          sender: bech32Address,
+          title: e.target['title'].value,
+          description: e.target['description'].value,
+          source_code:  e.target['sourceUrl'].value,
+          project_home: e.target['projectUrl'].value,
+          category: e.target['category'].value,
+        },
+      },
+    ];
+    const fee = {
+      gas: "200000",
+      amount: [
+        {
+          amount: "0",
+          denom: "uert",
+        },
+      ],
+    };
+
+    const signDoc = makeSignDoc(
+      aminoMsgs,
+      fee,
+      chainInfo.chainId,
+      "",
+      accountNumber.toString(),
+      sequence.toString()
+    );
+
+    try {
+      const signResponse = await keplr.signAmino(
+        chainInfo.chainId,
+        bech32Address,
+        signDoc,
+        undefined
+      );
+      const signedTx = makeStdTx(signResponse.signed, signResponse.signature);
+      await keplr.sendTx(
+        chainInfo.chainId,
+        signedTx,
+        "async"
+      );
+    }
+    catch {
+    }
+  }
+
   return (
     <>
       <Head>

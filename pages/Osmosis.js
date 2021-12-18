@@ -112,13 +112,32 @@ return(
               <br/>
               <div className={styles.ovv}>
               <p >
-              The Graph is an indexing protocol for querying networks like Ethereum and IPFS. It is a decentralized network comprised of multiple stakeholders incentivized to build and offer an efficient and reliable open data marketplace, through GraphQL-based APIs.
+              Osmosis is an indexing protocol for querying networks like Ethereum and IPFS. It is a decentralized network comprised of multiple stakeholders incentivized to build and offer an efficient and reliable open data marketplace, through GraphQL-based APIs.
 
 The Graph learns what and how to index Blockchain data based on subgraph descriptions, known as the subgraph manifest. The subgraph description defines the smart contracts of interest for a subgraph, the events in those contracts to pay attention to, and how to map data to data that The Graph will index and store in its decentralized network, to be served by Indexers. Indexers are network participants responsible for running their own infrastructure capable of indexing subgraphs and subsequently serve such data.
 
 The network is fully permissionless, meaning that every stakeholder can design, implement and deploy subgraphs, with Indexers choosing which subgraphs to index based on a number of factors such as Curators’ interest (signaling high-quality ones which may result in high query volume). Delegators are another key network participant in this open data economy, who delegate their stake towards Indexers, receiving, in turn, a portion of both network rewards and fees from subsequently served queries. Like Delegators, Curators also receive a portion of the query fees, when staking their own GRT in a subgraph’s bounding curve (signaling).
 
               </p>
+              <h2 className={styles.reward}>
+              Reward by Threat Level
+              </h2>
+              <p>
+              Rewards are distributed according to the impact of the vulnerability based on the Immunefi Vulnerability Severity Classification System. This is a simplified 5-level scale, with separate scales for websites/apps and smart contracts/blockchains, encompassing everything from the consequence of exploitation to privilege required to the likelihood of a successful exploit.
+<br/>
+<br/>
+Rewards for critical vulnerabilities are capped at 10% of economic damage, primarily focusing on the possible loss of funds for Indexers, Delegators, and Curators at Smart Contract level only, but also taking into consideration other aspects such as branding and PR, at the discretion of The Graph Foundation.
+<br/>
+<br/>
+In order to qualify for a reward, bug bounty hunters will need to provide KYC through https://register.thegraph.com. Additionally, all bug reports must come with log components, reproduction, and data about vulnerabilities to support learnings and bug fixes. This can be satisfied by providing relevant screenshots, docs, code, and steps to reproduce the issue.
+
+
+              </p>
+
+              <h2 className={styles.scope}>
+              Assets in Scope
+              </h2>
+              <Image src="/scope.png" alt="scope" width="1400" height="843px"/>
               </div>
         </div>
       </div>
