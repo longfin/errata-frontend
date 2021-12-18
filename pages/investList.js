@@ -71,7 +71,9 @@ return(
               <div className={styles.project}>
                 <div className={styles.projectName}>Osmosis</div>
                 <div className={styles.epoch}>Epoch 4</div>
+                <Link href="/Osmosis">
                 <button className={styles.invbutton1}>Invest</button>
+                </Link>
               </div>
       
 
