@@ -35,7 +35,7 @@ export default function Home() {
               <Link href="/host">
                 <a className={styles.hostButton}>Host Errata</a>
               </Link>
-              <Link href="/Errata/invest">
+              <Link href="/invest">
                 <a className={styles.investButton}>Invest</a>
               </Link>
             </div>

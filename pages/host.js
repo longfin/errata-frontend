@@ -12,7 +12,7 @@ export default function Host() {
           <Link href="/"  >
             <img src="/logo.png" alt="hollo" className={styles.logoImage} />
           </Link>
-          </div>
+        </div>
 
         <div className={styles.caef}>
           <p>Create an Errata form</p>
