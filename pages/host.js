@@ -87,57 +87,57 @@ export default function Host() {
           </div>
           <div className={styles.titlerg}>
             <label>
-              Project name
+              Protocol name
               <br />
-              <input className={styles.inputBox}></input>
+              <input className={styles.inputBox} placeholder=" Protocol Name"></input>
             </label>
           </div>
 
           <div className={styles.descriptionrg}>
             <label>
-              Discription
+              Description
               <br />
-              <input className={styles.descinput} />
+              <input className={styles.descinput}  />
             </label>
           </div>
 
-          <div className={styles.hcd}>
-            <p>Set goals for Errata </p>
+          <div className={styles.giturl}>
+              <label>
+                Github URL
+                <br />
+                <input className={styles.gitinputBox} placeholder=" https://github.com/mygrant" />
+              </label>
           </div>
 
-          <div className={styles.epochrg}>
-            <label>
-              Epoch number
-              <br />
-              <input className={styles.epochinput} />
-            </label>
-
-            <div className={styles.vulner}>
-              <label>
-                {" "}
-                Target vulnerabilities in scope
-                <br />
-                <input className={styles.epochinput}></input>
-              </label>
-            </div>
-
-            <div className={styles.giturl}>
-              <label>
-                Github Url
-                <br />
-                <input className={styles.gitinputBox} />
-              </label>
-            </div>
-
-            <div className={styles.proweb}>
+          <div className={styles.proweb}>
               <label>
                 Project Website
                 <br />
-                <input type="text" className={styles.prowebinput} />
+                <input type="text" className={styles.prowebinput} placeholder=" https://mywebsite.com"/>
               </label>
-            </div>
+          </div>
 
-            <button className={styles.launcherrata}>Launch Errata</button>
+          <div className={styles.errataCaef}>
+            <p>Set goals for Errata</p>
+          </div>
+
+          <div className={styles.enum}>
+              <label>
+                Epoch Number
+                <br />
+                <input type="text" className={styles.prowebinput} placeholder=" 2, 3, 5"/>
+              </label>
+          </div>         
+
+          <div className={styles.vul}>
+              <label>
+                External Funding & token sales
+                <br />
+                <input type="text" className={styles.prowebinput} placeholder=" 2, 3, 5"/>
+              </label>
+          </div>      
+          <button className={styles.launcherrata}>Host Errata</button>
+          <div className={styles.fin}> .
           </div>
         </div>
       </div>

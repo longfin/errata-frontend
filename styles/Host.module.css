@@ -314,7 +314,7 @@
 }
 
 .caef {
-  font-size: 36px;
+  font-size: 32px;
   position: absolute;
   left: 522px;
   top: 100px;
@@ -322,14 +322,25 @@
   text-align: center;
 }
 
+.errataCaef {
+  font-size: 32px;
+  position: absolute;
+  left: 150px;
+  top: 950px;
+  width: 1000px;
+  color: white;
+  text-align: center;
+  border-top: 0.1px solid rgb(109, 109, 109);
+}
+
 .titlerg {
   position: absolute;
-  top: 360px;
+  top: 230px;
   color: white !important;
   width: 956px;
-  height: 50px;
   left: 242px;
-  font-size: 30px;
+  font-size: 24px;
+  font-weight: 300;
   background-color: black;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -347,14 +358,14 @@
 }
 
 .descriptionrg{
-
   position:absolute;
-  top:500px;
+  top:360px;
   color:white!important;
   width:956px;
   height:113px;
   left: 242px;
-  font-size: 30px;
+  font-size: 24px;
+  font-weight: 300;
   background-color: black;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -362,15 +373,72 @@
 
 .giturl{
   position:absolute;
-  top:-520px;
-  left:-1px;
-
+  top:660px;
+  color:white!important;
+  width:956px;
+  height:113px;
+  left: 242px;
+  font-size: 24px;
+  font-weight: 300;
+  background-color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .proweb{
   position:absolute;
-  top:-390px;
+  top:780px;
+  color:white!important;
+  width:956px;
+  height:113px;
+  left: 242px;
+  font-size: 24px;
+  font-weight: 300;
+  background-color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
 
+.enum{
+  position:absolute;
+  top:1080px;
+  color:white!important;
+  width:956px;
+  height:103px;
+  left: 242px;
+  font-size: 24px;
+  font-weight: 300;
+  background-color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.enum{
+  position:absolute;
+  top:1080px;
+  color:white!important;
+  width:956px;
+  height:103px;
+  left: 242px;
+  font-size: 24px;
+  font-weight: 300;
+  background-color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.vul{
+  position:absolute;
+  top:1200px;
+  color:white!important;
+  width:956px;
+  height:103px;
+  left: 242px;
+  font-size: 24px;
+  font-weight: 300;
+  background-color: black;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .epochrg {
@@ -452,15 +520,14 @@
 }
 
 .launcherrata{
-    top:400px;
-    left:350px;
-    width:300px;
-    height:65px;
-    font-size: 30px;
-    background-color: black ;
+    top:1370px;
+    left:540px;
+    width:200px;
+    height:45px;
+    font-size: 18px;
+    background-color: #95E8F1 ;
     border: 2px solid #95E8F1;
-    font: #95E8F1;
-    color:#95E8F1;
+    color:black;
     position:absolute;
     border-radius: 10px;
     margin-bottom: 800px;
@@ -804,19 +871,19 @@
 }
 
 .inputBox {
-  border: 2px solid white;
+  border: 1px solid white;
   background-color: black;
   border-radius: 4px;
-  height: 30px;
-  width: 200px;
+  height: 40px;
+  width: 800px;
   position:absolute;
   left:0px;
-  top:60px;
+  top:50px;
   color:white;
 }
 
 .gitinputBox {
-  border: 2px solid white;
+  border: 1px solid white;
   background-color: black;
   border-radius: 4px;
   height: 30px;
@@ -828,26 +895,38 @@
 }
 
 .prowebinput{
-  border: 2px solid white;
+  border: 1px solid white;
   background-color: black;
   border-radius: 4px;
-  height: 30px;
-  width: 200px;
+  height: 40px;
+  width: 800px;
   position:absolute;
   left:0px;
-  top:60px;
+  top:50px;
   color:white;
 }
 
 .descinput{
-  border: 2px solid white;
+  border: 1px solid white;
   background-color: black;
   border-radius: 4px;
-  height: 30px;
-  width: 200px;
+  height: 230px;
+  width: 800px;
   position:absolute;
   left:0px;
-  top:60px;
+  top:40px;
+  color:white;
+}
+
+.gitinputBox {
+  border: 1px solid white;
+  background-color: black;
+  border-radius: 4px;
+  height: 40px;
+  width: 800px;
+  position:absolute;
+  left:0px;
+  top:50px;
   color:white;
 }
 
@@ -859,7 +938,12 @@
   width: 200px;
   position:absolute;
   left:0px;
-  top:60px;
+  top:260px;
   color:white;
 }
 
+.fin{
+  height: 30px;
+  top:1460px;
+  position:absolute;
+}
