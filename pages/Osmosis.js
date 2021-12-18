@@ -1,70 +1,157 @@
-import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { chainInfo } from "../config/chain";
 import { useEffect, useState } from "react";
 import { getKeplrFromWindow } from "@keplr-wallet/stores";
+import { Dec, DecUtils } from "@keplr-wallet/unit";
+import {
+  makeSignDoc,
+  makeStdTx,
+} from "@cosmjs/launchpad";
 
 
 export default function investList () {
-    const [keplr, setKeplr] = useState(null);
-    const [bech32Address, setBech32Address] = useState("");  
-    const KeyAccountAutoConnect = "account_auto_connect";
-    
-    const connectWallet = async () => {
-      try {
-        const newKeplr = await getKeplrFromWindow();
-    
-        if (!newKeplr) {
-          throw new Error("Keplr extension not found");
-        }
-    
-        await newKeplr.experimentalSuggestChain(chainInfo);
-        await newKeplr.enable(chainInfo.chainId);
-        
-        localStorage?.setItem(KeyAccountAutoConnect, "true");
-        setKeplr(newKeplr);
-      } catch (e) {
-        alert(e);
+  // FIXME should be changed;
+  const protocolId = 1;
+  const [keplr, setKeplr] = useState(null);
+  const [bech32Address, setBech32Address] = useState("");  
+  const KeyAccountAutoConnect = "account_auto_connect";
+  const [protocol, setProtocol] = useState(null);
+  
+  const connectWallet = async () => {
+    try {
+      const newKeplr = await getKeplrFromWindow();
+  
+      if (!newKeplr) {
+        throw new Error("Keplr extension not found");
+      }
+  
+      await newKeplr.experimentalSuggestChain(chainInfo);
+      await newKeplr.enable(chainInfo.chainId);
+      
+      localStorage?.setItem(KeyAccountAutoConnect, "true");
+      setKeplr(newKeplr);
+    } catch (e) {
+      alert(e);
+    }
+  };
+  
+  useEffect(() => {
+    const shouldAutoConnectAccount =
+      localStorage?.getItem(KeyAccountAutoConnect) != null;
+    const loadAccountInfo = async () => {
+      if (keplr != null)
+      {
+        const key= await keplr.getKey(chainInfo.chainId);
+        setBech32Address(key.bech32Address);
       }
     };
-  
-    useEffect(() => {
-      const shouldAutoConnectAccount =
-        localStorage?.getItem(KeyAccountAutoConnect) != null;
-      const loadAccountInfo = async () => {
-        if (keplr != null)
+
+    if (shouldAutoConnectAccount) {
+      connectWallet();
+    }
+    
+    loadAccountInfo();
+  }, [keplr]);
+
+  useEffect(() => {
+    fetch(`${chainInfo.rest}/errata/audit/v1beta1/protocol/${protocolId}`).then(async res => {
+      const data = await res.json();
+      setProtocol(data);
+    });
+  }, []);
+
+  async function sendTx(type, amount)
+  {
+    var res = await fetch(`${chainInfo.rest}/auth/accounts/${bech32Address}`);
+    var accountData = await res.json();
+    const accountNumber =
+      (accountData && accountData.result.value.account_number) || "0";
+    const sequence = (accountData && accountData.result.value.sequence) || "0";
+    const aminoMsgs = [
+      {
+        type: type,
+        value: {
+          sender: bech32Address,
+          pool_id: protocolId,
+          token_in: new Dec(amount)
+          .mul(
+            DecUtils.getPrecisionDec(
+              chainInfo.currencies.find(
+                (currency) => currency.coinMinimalDenom === "uert"
+              ).coinDecimals
+            )
+          )
+          .truncate()
+          .toString(),
+        },
+      },
+    ];
+    const fee = {
+      gas: "200000",
+      amount: [
         {
-          const key= await keplr.getKey(chainInfo.chainId);
-          setBech32Address(key.bech32Address);
-        }
-      };
-  
-      if (shouldAutoConnectAccount) {
-        connectWallet();
-      }
-      
-      loadAccountInfo();
-    }, [keplr]);
-return(
+          amount: "0",
+          denom: "uert",
+        },
+      ],
+    };
+
+    const signDoc = makeSignDoc(
+      aminoMsgs,
+      fee,
+      chainInfo.chainId,
+      "",
+      accountNumber.toString(),
+      sequence.toString()
+    );
+
+    try {
+      const signResponse = await keplr.signAmino(
+        chainInfo.chainId,
+        bech32Address,
+        signDoc,
+        undefined
+      );
+      const signedTx = makeStdTx(signResponse.signed, signResponse.signature);
+      await keplr.sendTx(
+        chainInfo.chainId,
+        signedTx,
+        "async"
+      );
+    }
+    catch (e){
+      console.error(e);
+    }
+  }
+
+  async function handleAttack() {
+    var amount = prompt("Please enter an amount to invest the attack pool");
+    await sendTx("errata/audit/MsgJoinAttackPool", amount);
+  }
+
+  async function handleDefense() {
+    var amount = prompt("Please enter an amount to invest the defense pool");
+    await sendTx("errata/audit/MsgJoinDefensePool", amount);
+  }
+
+  return(
     <div className={styles.container}>
         <header className={styles.header}>
             <Link href="/">
-                 <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
-             </Link>
-             { 
-                 (bech32Address !== "") 
-                      ? <span className={styles.bech32Address}>Connected as <code>{bech32Address}</code></span>
+              <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
+            </Link>
+            { 
+                (bech32Address !== "") 
+                    ? <span className={styles.bech32Address}>Connected as <code>{bech32Address}</code></span>
 
-                  : <button className={styles.connectwallet} onClick={connectWallet}>
-                  Connect Wallet
-                    </button>
-              }
+                : <button className={styles.connectwallet} onClick={connectWallet}>
+                Connect Wallet
+                  </button>
+            }
         </header>
         <hr className={styles.line}/>
-        
-        
         <p className={styles.totalinv}>
             Total Investment
         </p>
@@ -73,23 +160,22 @@ return(
         </div>
 
         <div className={styles.attak}>
-            Attack
+          Attack
         </div>
 
         <div className={styles.attakbalance}>
-              30.16 ERT
+          {protocol === null ? "-" : protocol.attack_pool} ERT
         </div>
 
         <div className={styles.defensecircle}>
-
         </div>
 
         <div className={styles.defens}>
-              Defense
+          Defense
         </div>
 
         <div className={styles.defensbalance}>
-              20.71 ERT
+          {protocol === null ? "-" : protocol.defense_pool} ERT
         </div>
 
         <div className={styles.osmo}>Osmosis
@@ -97,11 +183,9 @@ return(
 
         <div className={styles.osmoepoch}>Epoch 4</div>    
 
-        <button className={styles.abutton}>Attack</button> 
+        <button className={styles.abutton} onClick={() => {handleAttack()}}>Attack</button> 
 
-
-        
-        <button className={styles.dbutton}>Defense</button>      
+        <button className={styles.dbutton} onClick={() => {handleDefense()}}>Defense</button>
 
         <button className={styles.submitbutton}>Submit Errata</button>
  
