@@ -56,7 +56,7 @@ export default function Home() {
       </Head>
       <div className={styles.container}>
         <header className={styles.header}>
-          <Link href="/Errata">
+          <Link href="/">
             <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
           </Link>
           { 
@@ -84,7 +84,7 @@ export default function Home() {
               <Link href="/host">
                 <a className={styles.hostButton}>Host Errata</a>
               </Link>
-              <Link href="/invest">
+              <Link href="/investList">
                 <a className={styles.investButton}>Invest</a>
               </Link>
             </div>
@@ -92,6 +92,7 @@ export default function Home() {
           </div>
           <div className={styles.right}>
             <div className={styles.ongoing}>Ongoing Errata</div>
+            <Link href="investList">
             <div className={styles.projects}>
               <div className={styles.project}>
                 <div className={styles.projectName}>Project 1</div>
@@ -112,7 +113,8 @@ export default function Home() {
        
              
             </div>
-            <Link href="/invest">
+            </Link>
+            <Link href="/investList">
               <a className={styles.exp}>Explore projects →</a>
             </Link>
           </div>
