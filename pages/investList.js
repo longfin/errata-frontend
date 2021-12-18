@@ -97,7 +97,7 @@ export default function investList() {
                   <div className={styles.projectName}>{p.title}</div>
                   <div className={styles.ilEpoch}>Epoch 3</div>
                   <Link href="/Osmosis">
-                    <button className={styles.invbutton1}>Invest</button>
+                    <button className={styles.invbutton}>Invest</button>
                   </Link>
                 </div>)
             }

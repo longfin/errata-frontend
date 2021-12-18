@@ -1,7 +1,6 @@
 
 .container {
   padding: 0 2rem;
-  position:absolute;
   top: 20px !important;
 }
 
@@ -35,7 +34,6 @@
 
 .logoImage {
   margin-left: 90px;
-  height: 500px;
 }
 /* 
 .logoImage 
@@ -61,13 +59,9 @@
 }
 
 .ilMainSection {
-  border-bottom: 1px solid #95e8f1;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width:1196px;
-  height:760px;
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
 }
 
 .title a {
@@ -122,8 +116,6 @@
   font-size: 22px; 
   top: 360px;
   left: 138px;
-
-  
 
 }
 
@@ -266,7 +258,7 @@
   padding: 22px 66px;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 @media (max-width: 600px) {
@@ -512,8 +504,6 @@ border-width: thin;
 
 .epoch{
   font-size: 17px;
-  position:absolute;
-  left:50%;
   background-color:black;
 }
 
@@ -534,17 +524,13 @@ border-width: thin;
 .projectName{
   font-size: 22px;
   line-height: 26px;
-  color: #ffffff;
-  position: relative;
+  color: hsl(0, 0%, 100%);
   right:40%;
   font-size: 19px;
   font-weight: 300;
 }
 
-.invbutton1{
-  position:absolute;
-  left:750px;
-  top:25px;
+.invbutton{
   justify-items: center;
   border: 2px solid #95E8F1;
   background-color:#1d1f1f;
@@ -558,105 +544,11 @@ border-width: thin;
 
 }
 
-.invbutton1:hover{
+.invbutton:hover{
   background-color:#95E8F1 ;
   color:#1d1f1f;
   border: 2px solid #1d1f1f;
 
-}
-
-.invbutton2{
-  position:absolute;
-  left:750px;
-  top:105px;
-  border: 2px solid white;
-  border-radius: 6px;
-  margin-right: 20px;
-  border: 2px solid #95E8F1;
-  background-color:#1d1f1f;
-  color: #95E8F1;
-  height:40px;
-  width:170px;
-  font-size: 17px;
-  text-decoration: none;
-}
-
-.invbutton3{
-  position:absolute;
-  top:185px;
-  left:750px;
-  border: 2px solid white;
-  border-radius: 6px;
-  margin-right: 20px;
-  border: 2px solid #95E8F1;
-  background-color:#1d1f1f;
-  color: #95E8F1;
-  height:40px;
-  width:170px;
-  font-size: 17px;
-  text-decoration: none;
-}
-
-.invbutton4{
-  position:absolute;
-  top:265px;
-  left:750px;
-  border: 2px solid #95E8F1;
-  background-color:#1d1f1f;
-  color: #95E8F1;
-  height:40px;
-  width:170px;
-  font-size: 17px;
-  border-radius: 6px;
-  margin-right: 20px;
-  text-decoration: none;
-}
-
-.invbutton5{
-  position:absolute;
-  top:345px;
-  left:750px;
-  border: 2px solid #95E8F1;
-  background-color:#1d1f1f;
-  color: #95E8F1;
-  height:40px;
-  width:170px;
-  font-size: 17px;
-  border-radius: 6px;
-  margin-right: 20px;
- 
-  text-decoration: none;
-}
-
-.invbutton6{
-  position:absolute;
-  top:425px;
-  left:750px;
-  border: 2px solid #95E8F1;
-  background-color:#1d1f1f;
-  color: #95E8F1;
-  height:40px;
-  width:170px;
-  font-size: 17px;
-  border-radius: 6px;
-  margin-right: 20px;
-  text-decoration: none;
-}
-
-.invbutton7{
-  position:absolute;
-  top:505px;
-  left:750px;
-  padding:4px;
-  border: 2px solid #95E8F1;
-  background-color:#1d1f1f;
-  color: #95E8F1;
-  height:40px;
-  width:170px;
-  font-size: 17px;
-  border-radius: 6px;
-  margin-right: 20px;
-  text-decoration: none;
 }
 
 .prot{
