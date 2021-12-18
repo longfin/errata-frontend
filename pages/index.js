@@ -2,26 +2,19 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Host from "./host";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-    <div>
+    <>
       <Head>
         <title>Errata</title>
-       
         <meta name="description" content="Decentralized Audit Organization" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-  
-       </div>
-       <Link href="/Errata">
-         <a>
-        <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
-        </a>
+      <div className={styles.container}>
+        <Link href="/Errata">
+          <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
         </Link>
-
         <button className={styles.connectwallet}>
           Connect Wallet
         </button>
@@ -34,7 +27,7 @@ export default function Home() {
             </div>
             <div className={styles.description}>
               <p>A platform where token sales and audits <br/>
-                 are conducted simultaneously within <br/>
+                are conducted simultaneously within <br/>
                 a transparent investment environment.
               </p>
             </div>
@@ -46,11 +39,8 @@ export default function Home() {
                 <a className={styles.investButton}>Invest</a>
               </Link>
             </div>
-            
-                <a className={styles.hew}>How Errata works →</a>
-            
+            <a className={styles.hew}>How Errata works →</a>
           </div>
-
           <div className={styles.right}>
             <div className={styles.ongoing}>Ongoing Errata</div>
             <div className={styles.projects}>
@@ -72,15 +62,11 @@ export default function Home() {
               </div>
             </div>
             <Link href="/invest">
-                <a className={styles.exp}>Explore projects →</a>
-              </Link>
+              <a className={styles.exp}>Explore projects →</a>
+            </Link>
           </div>
         </div>
-    
-
- 
-
-    </div>
+      </div>
+    </>
   )
-  };
-
+};
