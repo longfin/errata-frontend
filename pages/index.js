@@ -2,29 +2,71 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Host from "./host";
+import { chainInfo } from "../config/chain";
+import { useEffect, useState } from "react";
+import { getKeplrFromWindow } from "@keplr-wallet/stores";
 
 export default function Home() {
+  const [keplr, setKeplr] = useState(null);
+  const [bech32Address, setBech32Address] = useState("");  
+  const KeyAccountAutoConnect = "account_auto_connect";
+  
+  const connectWallet = async () => {
+    try {
+      const newKeplr = await getKeplrFromWindow();
+  
+      if (!newKeplr) {
+        throw new Error("Keplr extension not found");
+      }
+  
+      await newKeplr.experimentalSuggestChain(chainInfo);
+      await newKeplr.enable(chainInfo.chainId);
+      
+      localStorage?.setItem(KeyAccountAutoConnect, "true");
+      setKeplr(newKeplr);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    const shouldAutoConnectAccount =
+      localStorage?.getItem(KeyAccountAutoConnect) != null;
+    const loadAccountInfo = async () => {
+      if (keplr != null)
+      {
+        const key= await keplr.getKey(chainInfo.chainId);
+        setBech32Address(key.bech32Address);
+      }
+    };
+
+    if (shouldAutoConnectAccount) {
+      connectWallet();
+    }
+    
+    loadAccountInfo();
+  }, [keplr]);
+  
   return (
-    <div className={styles.container}>
-    <div>
+    <>
       <Head>
         <title>Errata</title>
-       
         <meta name="description" content="Decentralized Audit Organization" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-  
-       </div>
-       <Link href="/Errata">
-         <a>
-        <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
-        </a>
-        </Link>
-
-        <button className={styles.connectwallet}>
-          Connect Wallet
-        </button>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <Link href="/Errata">
+            <Image src="/logo.png" alt="logo" width="250" height="62.5"/>
+          </Link>
+          { 
+            (bech32Address !== "") 
+            ? <span className={styles.bech32Address}>Connected as <code>{bech32Address}</code></span>
+            : <button className={styles.connectwallet} onClick={connectWallet}>
+              Connect Wallet
+            </button>
+          }
+        </header>
         <div className={styles.mainSection}>
           <div className={styles.left}>
             <div className={styles.title}>
@@ -34,7 +76,7 @@ export default function Home() {
             </div>
             <div className={styles.description}>
               <p>A platform where token sales and audits <br/>
-                 are conducted simultaneously within <br/>
+                are conducted simultaneously within <br/>
                 a transparent investment environment.
               </p>
             </div>
@@ -46,11 +88,8 @@ export default function Home() {
                 <a className={styles.investButton}>Invest</a>
               </Link>
             </div>
-            
-                <a className={styles.hew}>How Errata works →</a>
-            
+            <a className={styles.hew}>How Errata works →</a>
           </div>
-
           <div className={styles.right}>
             <div className={styles.ongoing}>Ongoing Errata</div>
             <div className={styles.projects}>
@@ -74,16 +113,12 @@ export default function Home() {
              
             </div>
             <Link href="/invest">
-                <a className={styles.exp}>Explore projects →</a>
-              </Link>
+              <a className={styles.exp}>Explore projects →</a>
+            </Link>
           </div>
  
         </div>
-    
-
-        
-
-    </div>
+      </div>
+    </>
   )
-  };
-
+};

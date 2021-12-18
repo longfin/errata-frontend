@@ -303,12 +303,21 @@
   text-align: center;
 }
 
+.header
+{
+  display: flex;
+  justify-content: space-between;
+}
 
 .connectwallet:hover{
   background-color: black;
   border: 2px solid white;
   color:#95E8F1;
+}
 
+.bech32Address {
+  color: #95e8f1;
+  margin: 15px;
 }
 
 .headbox{
